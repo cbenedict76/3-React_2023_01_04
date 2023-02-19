@@ -10,7 +10,6 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {/* <CampsitesDirectoryPage /> */}
       <Routes>
         <Route path='/' element={<HomePage/>} />
         <Route path='contact' element={<ContactPage />} />

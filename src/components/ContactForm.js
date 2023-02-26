@@ -2,17 +2,23 @@ import { Button, Label, Col, FormGroup } from 'reactstrap';
 import { Formik, Field, Form } from 'formik';
 
 const ContactForm = () => {
+    const handleSubmit = (values, { resetForm }) => {
+        console.log('form values:', values);
+        console.log('in JSON format:', JSON.stringify(values));
+        resetForm();
+    };
 return (
     <Formik 
         initialValues={{
             firstName: '',
-            lastname: '',
+            lastName: '',
             phoneNum: '',
             email: '',
             agree: false,
             contactType: 'By Phone',
             feedback: ''
         }}
+        onSubmit={handleSubmit}
     >
         <Form>
             <FormGroup row>
@@ -45,7 +51,7 @@ return (
                 </Label>
                 <Col md='10'>
                     <Field
-                        name='phonenum'
+                        name='phoneNum'
                         placeholder='Phone'
                         className='form-control'
                     />
@@ -84,7 +90,7 @@ return (
                     </Field>
                 </Col>
             </FormGroup>
-            <FormGroup>
+            <FormGroup row>
                 <Label row htmlFor='feedback' md='2'>
                     Your Feedback
                 </Label>
@@ -98,7 +104,11 @@ return (
                 </Col>
             </FormGroup>
             <FormGroup row>
-                DO I NEED THIS FORMGROUP
+                <Col md={{ size: 10, offset: 3 }}>
+                    <Button type='submit' color='primary'>
+                        Send Feedback
+                    </Button>
+                </Col>
             </FormGroup>
         </Form>
     </Formik>

@@ -1,5 +1,6 @@
 import { Button, Label, Col, FormGroup } from 'reactstrap';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { validateContactForm } from '../utils/validateContactForm';
 
 const ContactForm = () => {
     const handleSubmit = (values, { resetForm }) => {
@@ -19,6 +20,7 @@ return (
             feedback: ''
         }}
         onSubmit={handleSubmit}
+        validate={validateContactForm}
     >
         <Form>
             <FormGroup row>
@@ -28,13 +30,16 @@ return (
                 <Col md='10'>
                     <Field
                         name='firstName'
-                        placeHolder='First Name'
+                        placeholder='First Name'
                         className='form-control'
                     />
+                    <ErrorMessage name='firstName'>
+                        {(msg) => <p className='text-danger'>{msg}</p>}
+                    </ErrorMessage>
                 </Col>
             </FormGroup>
             <FormGroup row>
-                <Label row htmlFor='lastName' md='2'>
+                <Label htmlFor='lastName' md='2'>
                     Last Name
                 </Label>
                 <Col md='10'>
@@ -43,10 +48,13 @@ return (
                         placeholder='Last Name'
                         className='form-control'
                     />
+                    <ErrorMessage name='lastName'>
+                        {(msg) => <p className='text-danger'>{msg}</p>}
+                    </ErrorMessage>
                 </Col>
             </FormGroup>
             <FormGroup row>
-                <Label row htmlFor='phoneNum' md='2'>
+                <Label htmlFor='phoneNum' md='2'>
                     Phone
                 </Label>
                 <Col md='10'>
@@ -55,10 +63,13 @@ return (
                         placeholder='Phone'
                         className='form-control'
                     />
+                    <ErrorMessage name='phoneNum'>
+                        {(msg) => <p className='text-danger'>{msg}</p>}
+                    </ErrorMessage>
                 </Col>
             </FormGroup>
             <FormGroup row>
-                <Label row htmlFor='email' md='2'>
+                <Label htmlFor='email' md='2'>
                     Email
                 </Label>
                 <Col md='10'>
@@ -68,10 +79,13 @@ return (
                         type='email'
                         className='form-control'
                     />
+                    <ErrorMessage name='email'>
+                        {(msg) => <p className='text-danger'>{msg}</p>}
+                    </ErrorMessage>
                 </Col>
             </FormGroup>
             <FormGroup row>
-                <Label row check md={{ size: 4, offset: 2 }}>
+                <Label check md={{ size: 4, offset: 2 }}>
                     <Field
                         name='agree'
                         type='checkbox'
@@ -91,7 +105,7 @@ return (
                 </Col>
             </FormGroup>
             <FormGroup row>
-                <Label row htmlFor='feedback' md='2'>
+                <Label htmlFor='feedback' md='2'>
                     Your Feedback
                 </Label>
                 <Col md='10'>

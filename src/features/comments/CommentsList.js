@@ -3,9 +3,13 @@ import { Col } from 'reactstrap';
 import Comment from './Comment'
 import CommentForm from './CommentForm'
 import { selectCommentsByCampsiteID } from './commentsSlice';
+import Error from '../../components/Error';
+import Loading from '../../components/Loading';
 
 const CommentsList = ({ campsiteId }) => {
     const comments = useSelector(selectCommentsByCampsiteID(campsiteId));
+    const isLoading = useSelector((state) => state.comments.isLoading);
+    const errMsg = useSelector((state) => state.comments.errMsg);
 
     if (comments && comments.length > 0) {
         return (
@@ -18,6 +22,18 @@ const CommentsList = ({ campsiteId }) => {
             </Col>
         )
     }
+    
+    if (isLoading) {
+        return (
+            <loading />
+        )
+    }
+    if (errMsg) {
+        return (
+            <Error errMsg={errMsg} />
+        )
+    }
+
     return (
         <Col md='5' className='m-1'>
             There are no comment for this campsite yet.
